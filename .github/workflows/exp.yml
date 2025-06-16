@@ -38,6 +38,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Build
+        run: |
           ls
           java --version
           cd p
