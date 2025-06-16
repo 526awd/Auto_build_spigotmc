@@ -44,7 +44,7 @@ jobs:
           ls
           java --version
       - name: pu
-        uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-           GHR_PATH: p/
+        uses: nickatnight/releases-action@v2
+        with:
+          name: auto
+          tag: main
