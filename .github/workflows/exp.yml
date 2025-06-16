@@ -37,12 +37,11 @@ jobs:
            cp BuildTools.jar p/BuildTools.jar
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Build
           ls
           java --version
+          cd p
+          java -jar BuildTools.jar --rev 1.21.2
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
