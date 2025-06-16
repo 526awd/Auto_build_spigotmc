@@ -43,8 +43,8 @@ jobs:
           echo test, and deploy your project.
           ls
           java --version
-      - name: pu
-        uses: nickatnight/releases-action@v2
+      - name: up
+        uses: actions/upload-artifact@v4.6.2
         with:
-          name: auto
-          tag: main
+          name: mcs
+          path: p/
