@@ -43,3 +43,7 @@ jobs:
           echo test, and deploy your project.
           ls
           java --version
+      - name: pu
+        uses: fnkr/github-action-ghr@v1
+        env:
+           GHR_PATH: p/
