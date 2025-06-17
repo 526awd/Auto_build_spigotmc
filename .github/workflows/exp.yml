@@ -42,9 +42,9 @@ jobs:
           ls
           java --version
           cd p
-          java -jar BuildTools.jar --rev 1.21.2
+          java -jar BuildTools.jar --rev 1.21.4
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: mcs
-          path: p/
+          name: spigot1.21.4
+          path: p/*.jar
