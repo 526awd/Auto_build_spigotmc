@@ -40,7 +40,6 @@ jobs:
       - name: Build
         run: |
           ls
-          java --version
           cd p
           java -jar BuildTools.jar --rev 1.12.1
       - name: up
