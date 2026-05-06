@@ -49,7 +49,7 @@ jobs:
         with:
           generate_release_notes: true  # 自动生成更新日志
           files: |
-            p/*.jar  # 要上传的文件（可多行）
+            p/*.jar 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
