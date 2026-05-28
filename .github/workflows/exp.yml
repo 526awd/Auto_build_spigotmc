@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     tags:
-      - 'v*'
+      - '*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,7 +27,7 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '21'
       # Runs a single command using the runners shell
-      - name: get BuildTools
+      - name: Download BuildTools & Ready
         run: |
            curl -O https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
            mkdir p
@@ -38,11 +38,11 @@ jobs:
         run: |
           ls
           cd p
-          java -jar BuildTools.jar --rev 1.21.9
+          java -jar BuildTools.jar --rev 1.21.8
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: spigot1.21
+          name: spigot1.21.8
           path: p/*.jar
       - name: Create Release
         uses: softprops/action-gh-release@v2
