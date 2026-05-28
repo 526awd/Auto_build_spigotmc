@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '21'
+          java-version: '25'
       # Runs a single command using the runners shell
       - name: Download BuildTools & Ready
         run: |
@@ -38,7 +38,7 @@ jobs:
         run: |
           ls
           cd p
-          java -jar BuildTools.jar --rev 1.21.8
+          java -jar BuildTools.jar --rev 1.21.7
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
