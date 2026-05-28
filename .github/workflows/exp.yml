@@ -37,12 +37,13 @@ jobs:
       - name: Build
         run: |
           ls
+          source ver.sh
           cd p
-          java -jar BuildTools.jar --rev 1.21.7
+          java -jar BuildTools.jar --rev $ver_p_mc
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: spigot1.21.8
+          name: spigot_build
           path: p/*.jar
       - name: Create Release
         uses: softprops/action-gh-release@v2
