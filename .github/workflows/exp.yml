@@ -115,7 +115,7 @@ jobs:
         run: |
           ls
           cd p
-          python main.py ver_17.txt
+          python main.py ver_list.txt
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
