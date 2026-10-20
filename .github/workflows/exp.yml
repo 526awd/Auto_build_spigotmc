@@ -6,13 +6,17 @@ name: Auto spigotmc with buildTools
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    tags:
-      - 'v*'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_8:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions:
@@ -24,13 +28,15 @@ jobs:
       # Set up java jdk
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '25'
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '8'
       # Runs a single command using the runners shell
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13' 
       - name: Download BuildTools & Ready
         run: |
            curl -O https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-           mkdir p
            cp BuildTools.jar p/BuildTools.jar
 
       # Runs a set of commands using the runners shell
@@ -39,21 +45,79 @@ jobs:
           ls
           source ver.sh
           cd p
-          java -jar BuildTools.jar --rev $ver_p_mc
+          python main.py ver_8.txt
       - name: up
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: spigot_build
-          path: p/*.jar
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
+          name: spigot_build8
+          path: out/*.jar
+  # This workflow contains a single job called "build"
+  build_25:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      # Set up java jdk
+      - uses: actions/setup-java@v4
         with:
-          generate_release_notes: true  # 自生成更新日志
-          files: |
-            p/*.jar 
-            p/*.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          distribution: 'microsoft' # See 'Supported distributions' for available options
+          java-version: '25'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13' 
+      # Runs a single command using the runners shell
+      - name: Download BuildTools & Ready
+        run: |
+           curl -O https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+           cp BuildTools.jar p/BuildTools.jar
 
+      # Runs a set of commands using the runners shell
+      - name: Build
+        run: |
+          ls
+          cd p
+          python main.py ver_25.txt
+      - name: up
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: spigot_build25
+          path: out/*.jar
+  # This workflow contains a single job called "build"
+  build_17:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      # Set up java jdk
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft' # See 'Supported distributions' for available options
+          java-version: '17'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13' 
+      # Runs a single command using the runners shell
+      - name: Download BuildTools & Ready
+        run: |
+           curl -O https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+           cp BuildTools.jar p/BuildTools.jar
 
-          
+      # Runs a set of commands using the runners shell
+      - name: Build
+        run: |
+          ls
+          cd p
+          python main.py ver_17.txt
+      - name: up
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: spigot_build17
+          path: out/*.jar
